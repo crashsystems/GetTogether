@@ -6,7 +6,7 @@ from django.shortcuts import reverse
 
 from rest_framework import serializers
 from mptt.models import MPTTModel, TreeForeignKey
-
+from recurrence.fields import RecurrenceField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
@@ -60,6 +60,8 @@ class Event(models.Model):
 
     start_time = models.DateTimeField(help_text=_('Local date and time that the event starts'), verbose_name=_('Local Start Time'), db_index=True)
     end_time = models.DateTimeField(help_text=_('Local date and time that the event ends'), verbose_name=_('Local End Time'), db_index=True)
+    recurrences = RecurrenceField(null=True)
+
     summary = models.TextField(help_text=_('Summary of the Event'), blank=True, null=True)
 
     place = models.ForeignKey(Place, blank=True, null=True, on_delete=models.CASCADE)
